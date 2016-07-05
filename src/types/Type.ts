@@ -1,9 +1,32 @@
 import Condition from '../conditions/Condition';
+import ValidationResult from '../ValidationResult';
+import ValidationState from '../ValidationState';
+import forOwn from '../utils/forOwn';
 
 export default class Type {
+  static name: string;
+
   conditions: Object = {};
 
-  static register(ConditionCtor: Condition): void {
+  constructor(...args: any[]) {}
+
+  validate(state: ValidationState): ValidationResult {
+    const result = new ValidationResult();
+
+    forOwn(this.conditions, condition => {
+      let list = 'valid';
+
+      if (condition.validate(state.value, state)) {
+        list = 'invalid';
+      }
+
+      result[list].push({ condition, state });
+    });
+
+    return result;
+  }
+
+  static register(ConditionCtor: typeof Condition): void {
     const { name: string } = ConditionCtor;
 
     if (!name) {

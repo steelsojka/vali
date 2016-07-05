@@ -1,7 +1,13 @@
 export default class Condition {
   static name: string = '';
 
-  validate(): boolean {
+  constructor(...args: any[]) {}
+
+  validate(value: any): boolean {
+    return true;
+  }
+
+  sanitize(value: any): any {
     return true;
   }
 }
