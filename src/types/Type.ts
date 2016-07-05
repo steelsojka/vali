@@ -4,7 +4,7 @@ import ValidationState from '../ValidationState';
 import forOwn from '../utils/forOwn';
 
 export default class Type {
-  static name: string;
+  static typeName: string;
 
   conditions: Object = {};
 
@@ -27,16 +27,22 @@ export default class Type {
   }
 
   static register(ConditionCtor: typeof Condition): void {
-    const { name: string } = ConditionCtor;
+    const { conditionName: string } = ConditionCtor;
 
-    if (!name) {
+    if (!conditionName) {
       throw new Error('Name must be given when registering a condition');
     }
 
-    this.prototype[name] = function(...args: any[]): Type {
-      this.conditions[name] = new ConditionCtor(...args);
+    this.prototype[conditionName] = function(...args: any[]): Type {
+      this.conditions[conditionName] = new ConditionCtor(...args);
 
       return this;
     };
   }
+
+  static registerAll(conditions: typeof Condition[]): void {
+    conditions.forEach(condition => this.register(condition));
+  }
 }
+
+export { Type };

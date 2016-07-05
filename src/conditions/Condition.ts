@@ -1,5 +1,5 @@
 export default class Condition {
-  static name: string = '';
+  static conditionName: string = '';
 
   constructor(...args: any[]) {}
 

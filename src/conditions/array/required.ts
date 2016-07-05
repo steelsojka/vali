@@ -1,6 +1,6 @@
-import AnyRequiredCondition from '../any/required';
+import { AnyRequiredCondition } from '../any/required';
 
-export default class ArrayRequiredCondition extends AnyRequiredCondition {
+export class ArrayRequiredCondition extends AnyRequiredCondition {
   validate(value: any): boolean {
     return Array.isArray(value);
   }

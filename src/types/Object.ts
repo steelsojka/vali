@@ -1,7 +1,9 @@
 import Any from './Any';
 import ValidationResult from '../ValidationResult';
 
-export default class ObjectType extends Any {
+export class ObjectType extends Any {
+  static typeName: string = 'object';
+
   private schema: Object;
 
   constructor(schema: Object) {
@@ -12,5 +14,7 @@ export default class ObjectType extends Any {
 
   validate(value: Object): ValidationResult {
     const result = new ValidationResult();
+
+    return result;
   }
 }

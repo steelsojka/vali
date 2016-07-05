@@ -1,6 +1,6 @@
-import AnyRequiredCondition from '../any/required';
+import { AnyRequiredCondition } from '../any/required';
 
-export default class StringRequiredCondition extends AnyRequiredCondition {
+export class StringRequiredCondition extends AnyRequiredCondition {
   validate(value: any): boolean {
     return typeof value === 'string' && value !== '';
   }

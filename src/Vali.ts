@@ -1,11 +1,15 @@
 import Type from './types/Type';
 
 export default class Vali {
-  static register(TypeCtor: typeof Type): void {
-    const { name: string } = TypeCtor;
+  register(TypeCtor: typeof Type): void {
+    const { typeName: string } = TypeCtor;
 
-    this.prototype[name] = function(...args: any[]): Type {
+    this[typeName] = function(...args: any[]): Type {
       return new TypeCtor(...args);
     };
+  }
+
+  registerAll(types: typeof Type[]): void {
+    types.forEach(_type => this.register(_type));
   }
 }
