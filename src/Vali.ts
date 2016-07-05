@@ -1,10 +1,10 @@
-import Type from './types/Type';
+import { Type, TypeConfig } from './types/Type';
 
 export default class Vali {
-  register(TypeCtor: typeof Type): void {
-    const { typeName: string } = TypeCtor;
+  register<T extends Type>(TypeCtor: {new(): T, config: TypeConfig}): void {
+    const { name } = TypeCtor.config;
 
-    this[typeName] = function(...args: any[]): Type {
+    this[name] = function(...args: any[]): Type {
       return new TypeCtor(...args);
     };
   }

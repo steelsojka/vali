@@ -2,10 +2,14 @@ import Condition from '../conditions/Condition';
 import ValidationResult from '../ValidationResult';
 import ValidationState from '../ValidationState';
 import forOwn from '../utils/forOwn';
+import Vali from '../Vali';
+
+interface TypeConfig {
+  name: string;
+}
 
 export default class Type {
-  static typeName: string;
-
+  static name: string = '';
   conditions: Object = {};
 
   constructor(...args: any[]) {}
@@ -26,8 +30,8 @@ export default class Type {
     return result;
   }
 
-  static register(ConditionCtor: typeof Condition): void {
-    const { conditionName: string } = ConditionCtor;
+  static register<T extends Condition>(ConditionCtor: {new(): T, conditionName: string}): void {
+    const { conditionName } = ConditionCtor;
 
     if (!conditionName) {
       throw new Error('Name must be given when registering a condition');
@@ -46,3 +50,4 @@ export default class Type {
 }
 
 export { Type };
+export { TypeConfig };
