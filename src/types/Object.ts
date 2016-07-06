@@ -1,10 +1,11 @@
-import Any from './Any';
+import { AnyType } from './Any';
 import ValidationResult from '../ValidationResult';
+import {
+  ObjectRequiredCondition
+} from '../conditions/object';
 
-export class ObjectType extends Any {
-  static typeName: string = 'object';
-
-  private schema: Object;
+export class ObjectType extends AnyType {
+  protected schema: Object;
 
   constructor(schema: Object) {
     super();
@@ -16,5 +17,11 @@ export class ObjectType extends Any {
     const result = new ValidationResult();
 
     return result;
+  }
+
+  required(): ObjectType {
+    this.addCondition('required', new ObjectRequiredCondition());
+
+    return this;
   }
 }

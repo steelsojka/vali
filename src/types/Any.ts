@@ -1,7 +1,12 @@
-import Type from './Type';
+import { Type } from './Type';
+import {
+  AnyRequiredCondition
+} from '../conditions/any';
 
-export default class AnyType extends Type {
-  static typeName: string = 'any';
+export class AnyType extends Type {
+  required(): AnyType {
+    this.addCondition('required', new AnyRequiredCondition());
+
+    return this;
+  }
 }
-
-export { AnyType };

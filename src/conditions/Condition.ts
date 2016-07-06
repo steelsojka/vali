@@ -1,13 +1,6 @@
-export default class Condition {
-  static conditionName: string = '';
-
-  constructor(...args: any[]) {}
-
-  validate(value: any): boolean {
-    return true;
-  }
-
-  sanitize(value: any): any {
-    return true;
-  }
+interface Condition {
+  validate(value: any): boolean;
+  sanitize(value: any): any;
 }
+
+export default Condition;
